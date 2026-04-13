@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English A1+ Exam - Complejo Educativo Cantón Las Ánimas</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f0f4ff;
+  --card: #ffffff;
+  --primary: #4338ca;
+  --primary-light: #6366f1;
+  --primary-soft: #e0e7ff;
+  --accent: #f59e0b;
+  --accent-light: #fef3c7;
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --text: #1e293b;
+  --text-mid: #475569;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --shadow: 0 4px 24px rgba(67,56,202,0.08);
+  --shadow-lg: 0 8px 40px rgba(67,56,202,0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.notranslate { translate: no; }
+
+/* === HEADER === */
+.exam-header {
+  background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #818cf8 100%);
+  color: white;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.exam-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: headerFloat 20s linear infinite;
+}
+@keyframes headerFloat { to { transform: translate(30px, 30px); } }
+
+.header-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.school-name { font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.15rem; }
+.school-location { font-size: 0.85rem; opacity: 0.85; margin-bottom: 0.75rem; }
+.exam-title { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.2rem; background: linear-gradient(90deg, #fef3c7, #fde68a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.teacher-line, .date-grade { font-size: 0.95rem; opacity: 0.9; }
+.date-grade { margin-top: 0.2rem; }
+
+/* === STUDENT INPUT === */
+.student-section {
+  max-width: 750px;
+  margin: -1.5rem auto 1.5rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 2;
+}
+.student-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.student-card label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.student-card input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  outline: none;
+}
+.student-card input:focus { border-color: var(--primary-light); }
+
+/* === WARNING BANNER === */
+.tab-warning {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--danger);
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  font-weight: 700;
+  z-index: 9999;
+  animation: warnPulse 0.5s ease;
+}
+@keyframes warnPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+/* === EXERCISES CONTAINER === */
+.exercises-wrap {
+  max-width: 750px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 2rem 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-title .emoji { font-size: 1.4rem; }
+.section-desc {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--primary-soft);
+}
+
+/* Rules Box */
+.rules-box {
+  background: linear-gradient(135deg, #fef3c7, #fff7ed);
+  border: 2px solid #f59e0b;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.rules-box h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  color: #92400e;
+  margin-bottom: 0.6rem;
+}
+.rules-box .rule {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.88rem;
+  border-left: 4px solid var(--accent);
+}
+.rules-box .rule:last-child { margin-bottom: 0; }
+.rule-label { font-weight: 700; color: #b45309; }
+
+/* Exercise Card */
+.exercise-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.exercise-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.exercise-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+.exercise-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.exercise-type {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.instructions {
+  background: var(--primary-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Clue Button */
+.clue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--accent-light);
+  color: #92400e;
+  border: 2px solid var(--accent);
+  border-radius: 50px;
+  padding: 0.35rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 1rem;
+}
+.clue-btn:hover { background: var(--accent); color: white; }
+.clue-text {
+  display: none;
+  background: #fffbeb;
+  border: 1px dashed #f59e0b;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: #78350f;
+  font-style: italic;
+}
+.clue-text.show { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
+
+/* Question items */
+.question-item {
+  margin-bottom: 0.9rem;
+  padding: 0.7rem;
+  background: #f8fafc;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.question-item:hover { border-color: var(--primary-soft); }
+.question-item label {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+.question-item input[type="text"],
+.question-item select {
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.question-item input:focus,
+.question-item select:focus { border-color: var(--primary-light); }
+
+/* Images inside exercises */
+.exercise-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--primary-soft);
+  margin: 0.3rem 0.5rem 0.3rem 0;
+  vertical-align: middle;
+}
+
+/* Multiple choice */
+.mc-options { display: flex; flex-direction: column; gap: 0.4rem; }
+.mc-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+.mc-option:hover { border-color: var(--primary-light); background: var(--primary-soft); }
+.mc-option input[type="radio"] { accent-color: var(--primary); }
+
+/* Matching */
+.match-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.5rem; align-items: center; }
+.match-left {
+  background: var(--primary-soft);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.match-arrow { color: var(--text-light); font-size: 1.2rem; }
+.match-grid select {
+  padding: 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+}
+.match-grid select:focus { border-color: var(--primary-light); }
+
+/* === SUBMIT / PDF === */
+.bottom-actions {
+  max-width: 750px;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  text-align: center;
+}
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.9rem 2.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(67,56,202,0.3);
+  transition: all 0.3s;
+}
+.pdf-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(67,56,202,0.4); }
+.pdf-btn:active { transform: translateY(0); }
+.pdf-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .exam-header { padding: 1.5rem 1rem; }
+  .school-name { font-size: 1.1rem; }
+  .exam-title { font-size: 1.4rem; }
+  .student-card { padding: 1rem; flex-direction: column; align-items: stretch; }
+  .exercise-card { padding: 1rem; }
+  .match-grid { grid-template-columns: 1fr; gap: 0.3rem; }
+  .match-arrow { display: none; }
+}
+</style>
+</head>
+<body class="notranslate">
+
+<!-- Tab Warning -->
+<div class="tab-warning" id="tabWarning">⚠️ You switched tabs! Your exercises have been reshuffled. ⚠️</div>
+
+<!-- Header -->
+<header class="exam-header">
+  <div class="header-content">
+    <div class="school-name">🏫 Complejo Educativo Cantón Las Ánimas</div>
+    <div class="school-location">San Lorenzo, San Vicente</div>
+    <div class="exam-title">📝 English A1+ Exam</div>
+    <div class="teacher-line">👨‍🏫 Teacher: José Eliseo Martínez</div>
+    <div class="date-grade">📅 Date: <span id="currentDate"></span> &nbsp;|&nbsp; 🎓 Grade: 10th</div>
+  </div>
+</header>
+
+<!-- Student Name -->
+<div class="student-section">
+  <div class="student-card">
+    <label>👤 Student's Name:</label>
+    <input type="text" id="studentName" placeholder="Write your full name here..." autocomplete="off" spellcheck="false">
+  </div>
+</div>
+
+<!-- Exercises Container -->
+<div class="exercises-wrap" id="exercisesContainer"></div>
+
+<!-- PDF Button -->
+<div class="bottom-actions">
+  <button class="pdf-btn" id="pdfBtn" onclick="generatePDF()">
+    📥 Download PDF
+  </button>
+  <p style="margin-top:0.8rem;font-size:0.82rem;color:var(--text-light);">Make sure you answered all questions before downloading.</p>
+</div>
+
+<script>
+// ============================================================
+// ANTI-CHEAT: No copy, no paste, no translate, no drag
+// ============================================================
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.querySelectorAll('input[type=text]').forEach(el => {
+  el.addEventListener('paste', e => e.preventDefault());
+});
+
+// Observer to block Google Translate bar injection
+const obs = new MutationObserver(muts => {
+  muts.forEach(m => {
+    m.addedNodes.forEach(n => {
+      if(n.classList && (n.classList.contains('goog-te-banner-frame') || n.classList.contains('skiptranslate'))) n.remove();
+    });
+  });
+});
+obs.observe(document.body, { childList: true, subtree: true });
+
+// ============================================================
+// DATE
+// ============================================================
+const now = new Date();
+document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+// ============================================================
+// IMAGE BASE PATH - Change this if your repo structure differs
+// ============================================================
+const IMG = 'files/';
+
+// ============================================================
+// 30 ADJECTIVES
+// ============================================================
+const ADJ = [
+  'Old','New','Beautiful','Big','Dark','Small','Tall','Short','Fast','Slow',
+  'Hot','Cold','Happy','Sad','Clean','Dirty','Strong','Weak','Hard','Soft',
+  'Loud','Quiet','Rich','Poor','Good','Bad','Young','Kind','Funny','Brave'
+];
+
+const ADJ_OPPOSITES = {
+  Old:'Young',Young:'Old',New:'Old',Beautiful:'Bad',Big:'Small',Small:'Big',
+  Dark:'Clean',Tall:'Short',Short:'Tall',Fast:'Slow',Slow:'Fast',
+  Hot:'Cold',Cold:'Hot',Happy:'Sad',Sad:'Happy',Clean:'Dirty',Dirty:'Clean',
+  Strong:'Weak',Weak:'Strong',Hard:'Soft',Soft:'Hard',
+  Loud:'Quiet',Quiet:'Loud',Rich:'Poor',Poor:'Rich',Good:'Bad',Bad:'Good',
+  Kind:'Bad',Funny:'Sad',Brave:'Weak'
+};
+
+// ============================================================
+// IRREGULAR VERBS DATA
+// ============================================================
+const IRREG = [
+  {base:'be (was/were)',past:'was/were'}, {base:'become',past:'became'}, {base:'begin',past:'began'},
+  {base:'bring',past:'brought'}, {base:'build',past:'built'}, {base:'buy',past:'bought'},
+  {base:'choose',past:'chose'}, {base:'come',past:'came'}, {base:'do',past:'did'},
+  {base:'drink',past:'drank'}, {base:'drive',past:'drove'}, {base:'eat',past:'ate'},
+  {base:'feel',past:'felt'}, {base:'find',past:'found'}, {base:'get',past:'got'},
+  {base:'give',past:'gave'}, {base:'go',past:'went'}, {base:'have',past:'had'},
+  {base:'hear',past:'heard'}, {base:'know',past:'knew'}, {base:'leave',past:'left'},
+  {base:'make',past:'made'}, {base:'say',past:'said'}, {base:'see',past:'saw'},
+  {base:'take',past:'took'}
+];
+
+// ============================================================
+// REGULAR VERBS DATA
+// ============================================================
+const REG_VERBS = {
+  rule1: [
+    {base:'walk',past:'walked'}, {base:'talk',past:'talked'}, {base:'clean',past:'cleaned'},
+    {base:'open',past:'opened'}, {base:'play',past:'played'}, {base:'cook',past:'cooked'},
+    {base:'help',past:'helped'}, {base:'work',past:'worked'}, {base:'rain',past:'rained'},
+    {base:'start',past:'started'}, {base:'need',past:'needed'}, {base:'ask',past:'asked'},
+    {base:'learn',past:'learned'}, {base:'listen',past:'listened'}, {base:'visit',past:'visited'}
+  ],
+  rule2: [
+    {base:'live',past:'lived'}, {base:'love',past:'loved'}, {base:'dance',past:'danced'},
+    {base:'smile',past:'smiled'}, {base:'move',past:'moved'}, {base:'like',past:'liked'},
+    {base:'arrive',past:'arrived'}, {base:'use',past:'used'}, {base:'close',past:'closed'},
+    {base:'practice',past:'practiced'}
+  ],
+  rule3vowel: [
+    {base:'play',past:'played'}, {base:'enjoy',past:'enjoyed'}, {base:'stay',past:'stayed'},
+    {base:'destroy',past:'destroyed'}
+  ],
+  rule3consonant: [
+    {base:'study',past:'studied'}, {base:'carry',past:'carried'}, {base:'try',past:'tried'},
+    {base:'cry',past:'cried'}, {base:'worry',past:'worried'}, {base:'hurry',past:'hurried'},
+    {base:'copy',past:'copied'}
+  ],
+  rule4: [
+    {base:'stop',past:'stopped'}, {base:'plan',past:'planned'}, {base:'drop',past:'dropped'},
+    {base:'clap',past:'clapped'}, {base:'travel',past:'traveled'}, {base:'prefer',past:'preferred'}
+  ]
+};
+
+// ============================================================
+// UTILITY FUNCTIONS
+// ============================================================
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function pick(arr,n) { return shuffle(arr).slice(0,n); }
+function randInt(min,max) { return Math.floor(Math.random()*(max-min+1))+min; }
+
+// ============================================================
+// EXERCISE BANK — Each exercise has 4+ version generators
+// ============================================================
+const EXERCISES = [];
+
+// ================================================================
+// SECTION 1: DESCRIPTIVE ADJECTIVES (Exercises 1-4)
+// ================================================================
+
+// --- EXERCISE 1: Match adjective to image ---
+const ex1Versions = [
+  () => ({
+    type: 'matching_img',
+    title: 'Image Match ✨',
+    instructions: 'Look at each image and choose the adjective that best describes it.',
+    clue: '💡 Pista: Observa cada imagen con cuidado. Los adjetivos describen cómo es algo o alguien.',
+    items: shuffle([
+      { img: IMG+'old.webp', label: 'An old man', answer: 'Old', options: shuffle(['Old','Young','Fast','Strong']) },
+      { img: IMG+'young.webp', label: 'A young boy', answer: 'Young', options: shuffle(['Old','Young','Sad','Weak']) },
+      { img: IMG+'fast.jpg', label: 'A fast crocodile', answer: 'Fast', options: shuffle(['Slow','Fast','Small','Quiet']) },
+      { img: IMG+'slow.webp', label: 'A slow snail', answer: 'Slow', options: shuffle(['Fast','Slow','Big','Loud']) },
+      { img: IMG+'beautiful.webp', label: 'A beautiful cat', answer: 'Beautiful', options: shuffle(['Beautiful','Dirty','Sad','Dark']) },
+    ])
+  }),
+  () => ({
+    type: 'matching_img',
+    title: 'Image Match ✨',
+    instructions: 'Look at each image and choose the adjective that best describes it.',
+    clue: '💡 Pista: Los adjetivos nos dicen cómo son las personas, animales o cosas. ¡Mira bien la imagen!',
+    items: shuffle([
+      { img: IMG+'happy.avif', label: 'Happy children', answer: 'Happy', options: shuffle(['Happy','Sad','Quiet','Poor']) },
+      { img: IMG+'slow.webp', label: 'A slow snail', answer: 'Slow', options: shuffle(['Fast','Slow','Strong','Tall']) },
+      { img: IMG+'old.webp', label: 'An old man', answer: 'Old', options: shuffle(['Young','Old','Kind','Rich']) },
+      { img: IMG+'fast.jpg', label: 'A fast crocodile', answer: 'Fast', options: shuffle(['Slow','Fast','Weak','Soft']) },
+      { img: IMG+'beautiful.webp', label: 'A beautiful cat', answer: 'Beautiful', options: shuffle(['Dirty','Beautiful','Bad','Dark']) },
+    ])
+  }),
+  () => ({
+    type: 'matching_img',
+    title: 'Image Match ✨',
+    instructions: 'Look at each image and select the correct adjective.',
+    clue: '💡 Pista: Piensa en la cualidad principal que ves en cada imagen. ¿Es grande, pequeño, rápido, lento?',
+    items: shuffle([
+      { img: IMG+'young.webp', label: 'A young boy', answer: 'Young', options: shuffle(['Old','Young','Short','Bad']) },
+      { img: IMG+'beautiful.webp', label: 'A beautiful cat', answer: 'Beautiful', options: shuffle(['Beautiful','Ugly','Dirty','Loud']) },
+      { img: IMG+'happy.avif', label: 'Happy children', answer: 'Happy', options: shuffle(['Sad','Happy','Quiet','Cold']) },
+      { img: IMG+'old.webp', label: 'An old man', answer: 'Old', options: shuffle(['Young','Old','Fast','Clean']) },
+      { img: IMG+'slow.webp', label: 'A slow snail', answer: 'Slow', options: shuffle(['Big','Slow','Hard','Hot']) },
+    ])
+  }),
+  () => ({
+    type: 'matching_img',
+    title: 'Image Match ✨',
+    instructions: 'Match each picture with the correct adjective.',
+    clue: '💡 Pista: Cada adjetivo describe una característica. Mira la imagen y piensa: ¿qué palabra describe mejor esto?',
+    items: shuffle([
+      { img: IMG+'fast.jpg', label: 'A fast crocodile', answer: 'Fast', options: shuffle(['Fast','Slow','Kind','Soft']) },
+      { img: IMG+'happy.avif', label: 'Happy children', answer: 'Happy', options: shuffle(['Sad','Happy','Dirty','Poor']) },
+      { img: IMG+'young.webp', label: 'A young boy', answer: 'Young', options: shuffle(['Old','Young','Big','Brave']) },
+      { img: IMG+'old.webp', label: 'An old man', answer: 'Old', options: shuffle(['Old','New','Fast','Rich']) },
+      { img: IMG+'beautiful.webp', label: 'A beautiful cat', answer: 'Beautiful', options: shuffle(['Beautiful','Bad','Strong','Dark']) },
+    ])
+  })
+];
+
+EXERCISES.push({ section: 'adj', generators: ex1Versions });
+
+// --- EXERCISE 2: Write the opposite adjective ---
+const ex2Versions = [
+  () => {
+    const pairs = pick([
+      {adj:'Hot',opp:'Cold'},{adj:'Big',opp:'Small'},{adj:'Happy',opp:'Sad'},{adj:'Fast',opp:'Slow'},{adj:'Clean',opp:'Dirty'}
+    ],5);
+    return { type:'fill_opposite', title:'Write the Opposite 🔄', instructions:'Write the opposite adjective for each word.', clue:'💡 Pista: Los opuestos son contrarios. Ejemplo: "Hot" es lo contrario de "Cold". Usa los 30 adjetivos de la lista.', items: pairs };
+  },
+  () => {
+    const pairs = pick([
+      {adj:'Tall',opp:'Short'},{adj:'Strong',opp:'Weak'},{adj:'Loud',opp:'Quiet'},{adj:'Rich',opp:'Poor'},{adj:'Good',opp:'Bad'}
+    ],5);
+    return { type:'fill_opposite', title:'Write the Opposite 🔄', instructions:'Write the opposite adjective for each word.', clue:'💡 Pista: Piensa en el significado de cada adjetivo y busca su contrario entre los 30 adjetivos.', items: pairs };
+  },
+  () => {
+    const pairs = pick([
+      {adj:'Old',opp:'Young'},{adj:'Hard',opp:'Soft'},{adj:'Dark',opp:'Clean'},{adj:'Sad',opp:'Happy'},{adj:'Slow',opp:'Fast'}
+    ],5);
+    return { type:'fill_opposite', title:'Write the Opposite 🔄', instructions:'Write the opposite adjective.', clue:'💡 Pista: Cada adjetivo tiene un opuesto. Por ejemplo: viejo (Old) es lo contrario de joven (Young).', items: pairs };
+  },
+  () => {
+    const pairs = pick([
+      {adj:'Small',opp:'Big'},{adj:'Cold',opp:'Hot'},{adj:'Weak',opp:'Strong'},{adj:'Quiet',opp:'Loud'},{adj:'Poor',opp:'Rich'}
+    ],5);
+    return { type:'fill_opposite', title:'Write the Opposite 🔄', instructions:'Write the opposite of each adjective.', clue:'💡 Pista: Si algo es pequeño (Small), su opuesto es grande (Big). ¡Piensa en contrarios!', items: pairs };
+  }
+];
+EXERCISES.push({ section: 'adj', generators: ex2Versions });
+
+// --- EXERCISE 3: Complete the sentence with the correct adjective ---
+const ex3Versions = [
+  () => ({
+    type:'fill_sentence',
+    title:'Complete the Sentence ✏️',
+    instructions:'Choose the correct adjective to complete each sentence.',
+    clue:'💡 Pista: Lee la oración completa y piensa qué adjetivo tiene sentido. El contexto te da la respuesta.',
+    items: shuffle([
+      { sentence:'The elephant is very ___.', answer:'Big', options:shuffle(['Big','Small','Fast','Clean']) },
+      { sentence:'The ice cream is ___.', answer:'Cold', options:shuffle(['Hot','Cold','Loud','Tall']) },
+      { sentence:'The baby is ___ because she is smiling.', answer:'Happy', options:shuffle(['Happy','Sad','Dirty','Old']) },
+      { sentence:'The night sky is ___.', answer:'Dark', options:shuffle(['Dark','Clean','Soft','Short']) },
+      { sentence:'The rabbit is very ___.', answer:'Fast', options:shuffle(['Slow','Fast','Weak','Bad']) },
+    ])
+  }),
+  () => ({
+    type:'fill_sentence',
+    title:'Complete the Sentence ✏️',
+    instructions:'Select the best adjective for each sentence.',
+    clue:'💡 Pista: Piensa en la situación descrita. ¿Cómo es la persona, animal o cosa? Eso te dice el adjetivo.',
+    items: shuffle([
+      { sentence:'The music is too ___, I can hear it from outside.', answer:'Loud', options:shuffle(['Loud','Quiet','Soft','Small']) },
+      { sentence:'My grandmother is very ___. She helps everyone.', answer:'Kind', options:shuffle(['Kind','Bad','Dirty','Sad']) },
+      { sentence:'The pillow is very ___.', answer:'Soft', options:shuffle(['Hard','Soft','Fast','Tall']) },
+      { sentence:'The firefighter is very ___.', answer:'Brave', options:shuffle(['Brave','Weak','Poor','Slow']) },
+      { sentence:'The clown is very ___.', answer:'Funny', options:shuffle(['Funny','Sad','Quiet','Old']) },
+    ])
+  }),
+  () => ({
+    type:'fill_sentence',
+    title:'Complete the Sentence ✏️',
+    instructions:'Pick the correct adjective to fill in the blank.',
+    clue:'💡 Pista: El adjetivo describe al sujeto de la oración. Pregúntate: ¿cómo es?',
+    items: shuffle([
+      { sentence:'The water in the pool is ___.', answer:'Cold', options:shuffle(['Cold','Hot','Dirty','Small']) },
+      { sentence:'The ___ man can lift heavy things.', answer:'Strong', options:shuffle(['Weak','Strong','Short','Poor']) },
+      { sentence:'My room is very ___, I clean it every day.', answer:'Clean', options:shuffle(['Dirty','Clean','Dark','Loud']) },
+      { sentence:'The giraffe is very ___.', answer:'Tall', options:shuffle(['Short','Tall','Small','Slow']) },
+      { sentence:'The ___ car goes very slowly.', answer:'Old', options:shuffle(['New','Old','Fast','Big']) },
+    ])
+  }),
+  () => ({
+    type:'fill_sentence',
+    title:'Complete the Sentence ✏️',
+    instructions:'Choose the correct adjective for each sentence.',
+    clue:'💡 Pista: Lee toda la oración antes de elegir. El significado general te guiará.',
+    items: shuffle([
+      { sentence:'The library is very ___.', answer:'Quiet', options:shuffle(['Loud','Quiet','Dirty','Hot']) },
+      { sentence:'The test was very ___, many students failed.', answer:'Hard', options:shuffle(['Soft','Hard','Good','Small']) },
+      { sentence:'The puppy is ___ and playful.', answer:'Small', options:shuffle(['Big','Small','Old','Sad']) },
+      { sentence:'He lost his job. He feels very ___.', answer:'Sad', options:shuffle(['Happy','Sad','Rich','Fast']) },
+      { sentence:'The ___ student gets good grades.', answer:'Good', options:shuffle(['Bad','Good','Dirty','Weak']) },
+    ])
+  }),
+];
+EXERCISES.push({ section: 'adj', generators: ex3Versions });
+
+// --- EXERCISE 4: Match adjective ↔ opposite ---
+const ex4Versions = [
+  () => ({
+    type:'match_dropdown',
+    title:'Match the Opposites 🔗',
+    instructions:'Match each adjective on the left with its opposite on the right.',
+    clue:'💡 Pista: Los adjetivos tienen opuestos. Caliente y frío, grande y pequeño. ¡Relaciona cada par!',
+    items: shuffle([
+      {left:'Hot',answer:'Cold'},{left:'Big',answer:'Small'},{left:'Happy',answer:'Sad'},{left:'Strong',answer:'Weak'},{left:'Loud',answer:'Quiet'}
+    ]),
+    pool: shuffle(['Cold','Small','Sad','Weak','Quiet','Fast','Kind'])
+  }),
+  () => ({
+    type:'match_dropdown',
+    title:'Match the Opposites 🔗',
+    instructions:'Select the correct opposite for each adjective.',
+    clue:'💡 Pista: Piensa en el significado en español de cada adjetivo y busca su contrario.',
+    items: shuffle([
+      {left:'Tall',answer:'Short'},{left:'Fast',answer:'Slow'},{left:'Rich',answer:'Poor'},{left:'Clean',answer:'Dirty'},{left:'Good',answer:'Bad'}
+    ]),
+    pool: shuffle(['Short','Slow','Poor','Dirty','Bad','Old','Soft'])
+  }),
+  () => ({
+    type:'match_dropdown',
+    title:'Match the Opposites 🔗',
+    instructions:'Match each adjective with its opposite.',
+    clue:'💡 Pista: Recuerda los pares de opuestos: Old-Young, Hard-Soft, etc.',
+    items: shuffle([
+      {left:'Old',answer:'Young'},{left:'Hard',answer:'Soft'},{left:'Kind',answer:'Bad'},{left:'Cold',answer:'Hot'},{left:'Small',answer:'Big'}
+    ]),
+    pool: shuffle(['Young','Soft','Bad','Hot','Big','Slow','Dirty'])
+  }),
+  () => ({
+    type:'match_dropdown',
+    title:'Match the Opposites 🔗',
+    instructions:'Find the opposite adjective for each word.',
+    clue:'💡 Pista: Cada adjetivo tiene un par opuesto. ¡Conéctalos correctamente!',
+    items: shuffle([
+      {left:'Quiet',answer:'Loud'},{left:'Weak',answer:'Strong'},{left:'Poor',answer:'Rich'},{left:'Sad',answer:'Happy'},{left:'Slow',answer:'Fast'}
+    ]),
+    pool: shuffle(['Loud','Strong','Rich','Happy','Fast','Clean','Young'])
+  }),
+];
+EXERCISES.push({ section: 'adj', generators: ex4Versions });
+
+// ================================================================
+// SECTION 2: PAST REGULAR VERBS (Exercises 5-7)
+// ================================================================
+
+// --- EXERCISE 5: Apply the correct rule ---
+const ex5Versions = [
+  () => ({
+    type:'fill_past_reg',
+    title:'Write the Past Tense 📝',
+    instructions:'Write the past tense of each verb. Apply the correct rule.',
+    clue:'💡 Pista: Recuerda las 4 reglas. Si el verbo termina en "e", solo agrega "d". Si termina en consonante + "y", cambia "y" por "ied".',
+    items: shuffle([
+      {base:'walk',answer:'walked',rule:1},{base:'dance',answer:'danced',rule:2},{base:'study',answer:'studied',rule:3},{base:'stop',answer:'stopped',rule:4},{base:'play',answer:'played',rule:3}
+    ])
+  }),
+  () => ({
+    type:'fill_past_reg',
+    title:'Write the Past Tense 📝',
+    instructions:'Write each verb in the past tense using the correct rule.',
+    clue:'💡 Pista: Rule 1: add -ed. Rule 2: add -d. Rule 3: consonant+y cambia a -ied; vocal+y solo agrega -ed. Rule 4: duplica la última consonante.',
+    items: shuffle([
+      {base:'cook',answer:'cooked',rule:1},{base:'live',answer:'lived',rule:2},{base:'carry',answer:'carried',rule:3},{base:'plan',answer:'planned',rule:4},{base:'enjoy',answer:'enjoyed',rule:3}
+    ])
+  }),
+  () => ({
+    type:'fill_past_reg',
+    title:'Write the Past Tense 📝',
+    instructions:'Convert each verb to its past tense form.',
+    clue:'💡 Pista: Observa la última letra del verbo. Eso te dice qué regla usar.',
+    items: shuffle([
+      {base:'help',answer:'helped',rule:1},{base:'smile',answer:'smiled',rule:2},{base:'try',answer:'tried',rule:3},{base:'drop',answer:'dropped',rule:4},{base:'stay',answer:'stayed',rule:3}
+    ])
+  }),
+  () => ({
+    type:'fill_past_reg',
+    title:'Write the Past Tense 📝',
+    instructions:'Write the past form of each regular verb.',
+    clue:'💡 Pista: Fíjate bien: ¿termina en "e"? ¿en consonante + "y"? ¿en vocal corta + consonante? Cada caso tiene su regla.',
+    items: shuffle([
+      {base:'clean',answer:'cleaned',rule:1},{base:'love',answer:'loved',rule:2},{base:'cry',answer:'cried',rule:3},{base:'clap',answer:'clapped',rule:4},{base:'open',answer:'opened',rule:1}
+    ])
+  }),
+];
+EXERCISES.push({ section: 'reg', generators: ex5Versions });
+
+// --- EXERCISE 6: Identify the rule ---
+const ex6Versions = [
+  () => ({
+    type:'identify_rule',
+    title:'Which Rule? 🔍',
+    instructions:'Look at each verb in past tense and select which rule was used.',
+    clue:'💡 Pista: Compara la forma base con la forma pasada. ¿Se agregó -ed, -d, se cambió la "y", o se duplicó una consonante?',
+    items: shuffle([
+      {base:'work',past:'worked',answer:'Rule 1'},{base:'move',past:'moved',answer:'Rule 2'},{base:'worry',past:'worried',answer:'Rule 3'},{base:'stop',past:'stopped',answer:'Rule 4'},{base:'play',past:'played',answer:'Rule 3'}
+    ])
+  }),
+  () => ({
+    type:'identify_rule',
+    title:'Which Rule? 🔍',
+    instructions:'Identify the rule used to form the past tense of each verb.',
+    clue:'💡 Pista: Rule 1: solo +ed. Rule 2: termina en "e", solo +d. Rule 3: tiene que ver con la "y". Rule 4: se duplica la consonante final.',
+    items: shuffle([
+      {base:'talk',past:'talked',answer:'Rule 1'},{base:'dance',past:'danced',answer:'Rule 2'},{base:'study',past:'studied',answer:'Rule 3'},{base:'plan',past:'planned',answer:'Rule 4'},{base:'enjoy',past:'enjoyed',answer:'Rule 3'}
+    ])
+  }),
+  () => ({
+    type:'identify_rule',
+    title:'Which Rule? 🔍',
+    instructions:'Select the correct rule for each past tense form.',
+    clue:'💡 Pista: Mira qué cambió entre la forma base y la forma en pasado. Eso revela la regla.',
+    items: shuffle([
+      {base:'rain',past:'rained',answer:'Rule 1'},{base:'arrive',past:'arrived',answer:'Rule 2'},{base:'carry',past:'carried',answer:'Rule 3'},{base:'drop',past:'dropped',answer:'Rule 4'},{base:'stay',past:'stayed',answer:'Rule 3'}
+    ])
+  }),
+  () => ({
+    type:'identify_rule',
+    title:'Which Rule? 🔍',
+    instructions:'For each verb pair, choose the rule that was applied.',
+    clue:'💡 Pista: Analiza la terminación del verbo base. ¿Termina en "e"? ¿en consonante + "y"? ¿en CVC (consonante-vocal-consonante)?',
+    items: shuffle([
+      {base:'ask',past:'asked',answer:'Rule 1'},{base:'like',past:'liked',answer:'Rule 2'},{base:'try',past:'tried',answer:'Rule 3'},{base:'clap',past:'clapped',answer:'Rule 4'},{base:'destroy',past:'destroyed',answer:'Rule 3'}
+    ])
+  }),
+];
+EXERCISES.push({ section: 'reg', generators: ex6Versions });
+
+// --- EXERCISE 7: Complete sentence with regular past ---
+const ex7Versions = [
+  () => ({
+    type:'fill_sentence_reg',
+    title:'Complete with Past Tense 📖',
+    instructions:'Complete each sentence using the past tense of the verb in parentheses.',
+    clue:'💡 Pista: Primero identifica el verbo, luego aplica la regla correcta para convertirlo al pasado.',
+    items: shuffle([
+      {sentence:'She ___ (walk) to school yesterday.', verb:'walk', answer:'walked', img: null},
+      {sentence:'They ___ (study) for the exam last night.', verb:'study', answer:'studied', img: IMG+'study.png'},
+      {sentence:'He ___ (dance) at the party.', verb:'dance', answer:'danced', img: IMG+'dance.png'},
+      {sentence:'Mom ___ (cook) a delicious dinner.', verb:'cook', answer:'cooked', img: IMG+'cook.png'},
+      {sentence:'The children ___ (play) in the park.', verb:'play', answer:'played', img: IMG+'play.jpg'},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_reg',
+    title:'Complete with Past Tense 📖',
+    instructions:'Write the correct past tense form of the verb in parentheses.',
+    clue:'💡 Pista: Identifica la regla mirando cómo termina el verbo. Luego aplícala.',
+    items: shuffle([
+      {sentence:'I ___ (clean) my room this morning.', verb:'clean', answer:'cleaned', img:null},
+      {sentence:'She ___ (smile) when she saw the gift.', verb:'smile', answer:'smiled', img:null},
+      {sentence:'He ___ (study) English all afternoon.', verb:'study', answer:'studied', img:IMG+'study.png'},
+      {sentence:'The chef ___ (cook) a big meal.', verb:'cook', answer:'cooked', img:IMG+'cook.png'},
+      {sentence:'We ___ (play) soccer after school.', verb:'play', answer:'played', img:IMG+'play.jpg'},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_reg',
+    title:'Complete with Past Tense 📖',
+    instructions:'Fill in the blank with the past tense of the verb given.',
+    clue:'💡 Pista: Recuerda que "study" cambia la "y" por "ied", pero "play" solo agrega "ed" porque antes de la "y" hay vocal.',
+    items: shuffle([
+      {sentence:'They ___ (talk) about their homework.', verb:'talk', answer:'talked', img:null},
+      {sentence:'My sister ___ (dance) beautifully.', verb:'dance', answer:'danced', img:IMG+'dance.png'},
+      {sentence:'We ___ (cook) breakfast together.', verb:'cook', answer:'cooked', img:IMG+'cook.png'},
+      {sentence:'The baby ___ (cry) all night.', verb:'cry', answer:'cried', img:null},
+      {sentence:'I ___ (play) video games with my friend.', verb:'play', answer:'played', img:IMG+'play.jpg'},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_reg',
+    title:'Complete with Past Tense 📖',
+    instructions:'Complete each sentence with the correct past tense form.',
+    clue:'💡 Pista: Si el verbo termina en "e" como "dance", solo agrega "d". Si termina en consonante + "y" como "study", cambia "y" por "ied".',
+    items: shuffle([
+      {sentence:'He ___ (open) the door quickly.', verb:'open', answer:'opened', img:null},
+      {sentence:'We ___ (study) math yesterday.', verb:'study', answer:'studied', img:IMG+'study.png'},
+      {sentence:'She ___ (dance) with her friends.', verb:'dance', answer:'danced', img:IMG+'dance.png'},
+      {sentence:'The boys ___ (play) basketball.', verb:'play', answer:'played', img:IMG+'play.jpg'},
+      {sentence:'She ___ (stop) the car suddenly.', verb:'stop', answer:'stopped', img:null},
+    ])
+  }),
+];
+EXERCISES.push({ section: 'reg', generators: ex7Versions });
+
+// ================================================================
+// SECTION 3: PAST IRREGULAR VERBS (Exercises 8-10)
+// ================================================================
+
+// --- EXERCISE 8: Write the past form ---
+const ex8Versions = [
+  () => ({
+    type:'fill_irreg',
+    title:'Write the Irregular Past 🧩',
+    instructions:'Write the past tense form of each irregular verb.',
+    clue:'💡 Pista: Los verbos irregulares NO siguen reglas. Debes memorizarlos. Por ejemplo: go -> went, eat -> ate.',
+    items: shuffle(pick(IRREG,6))
+  }),
+  () => ({
+    type:'fill_irreg',
+    title:'Write the Irregular Past 🧩',
+    instructions:'Write the past tense of each verb. Be careful, they are irregular!',
+    clue:'💡 Pista: Estos verbos cambian completamente en pasado. No agregues -ed. Ejemplo: see -> saw.',
+    items: shuffle(pick(IRREG,6))
+  }),
+  () => ({
+    type:'fill_irreg',
+    title:'Write the Irregular Past 🧩',
+    instructions:'Fill in the past tense form for each irregular verb.',
+    clue:'💡 Pista: No hay regla para estos verbos. Recuerda: have -> had, make -> made, come -> came.',
+    items: shuffle(pick(IRREG,6))
+  }),
+  () => ({
+    type:'fill_irreg',
+    title:'Write the Irregular Past 🧩',
+    instructions:'Write each verb in its past tense form.',
+    clue:'💡 Pista: Son irregulares porque no terminan en -ed. Cada uno tiene su propia forma de pasado.',
+    items: shuffle(pick(IRREG,6))
+  }),
+];
+EXERCISES.push({ section: 'irreg', generators: ex8Versions });
+
+// --- EXERCISE 9: Choose the correct past ---
+const ex9Versions = [
+  () => {
+    const chosen = pick(IRREG.filter(v=>v.base!=='be (was/were)'),5);
+    return {
+      type:'mc_irreg',
+      title:'Choose the Correct Past ✅',
+      instructions:'Select the correct past tense form of each verb.',
+      clue:'💡 Pista: Solo una opción es correcta. Descarta las que suenan como verbos regulares (terminan en -ed).',
+      items: chosen.map(v => ({
+        base: v.base,
+        answer: v.past,
+        options: shuffle([v.past, v.base+'ed', shuffle(IRREG.filter(x=>x.past!==v.past))[0].past, v.base+'d'])
+      }))
+    };
+  },
+  () => {
+    const chosen = pick(IRREG.filter(v=>v.base!=='be (was/were)'),5);
+    return {
+      type:'mc_irreg',
+      title:'Choose the Correct Past ✅',
+      instructions:'Pick the correct irregular past tense for each verb.',
+      clue:'💡 Pista: Recuerda que los verbos irregulares tienen formas únicas. No sigas las reglas de los regulares.',
+      items: chosen.map(v => ({
+        base: v.base,
+        answer: v.past,
+        options: shuffle([v.past, v.base+'ed', shuffle(IRREG.filter(x=>x.past!==v.past))[0].past, v.base+'ing'])
+      }))
+    };
+  },
+  () => {
+    const chosen = pick(IRREG.filter(v=>v.base!=='be (was/were)'),5);
+    return {
+      type:'mc_irreg',
+      title:'Choose the Correct Past ✅',
+      instructions:'Which is the correct past form of each verb?',
+      clue:'💡 Pista: Si una opción termina en -ed, probablemente NO es la correcta para un verbo irregular.',
+      items: chosen.map(v => ({
+        base: v.base,
+        answer: v.past,
+        options: shuffle([v.past, v.base+'ed', shuffle(IRREG.filter(x=>x.past!==v.past))[0].past, v.base+'s'])
+      }))
+    };
+  },
+  () => {
+    const chosen = pick(IRREG.filter(v=>v.base!=='be (was/were)'),5);
+    return {
+      type:'mc_irreg',
+      title:'Choose the Correct Past ✅',
+      instructions:'Select the right past tense form for each irregular verb.',
+      clue:'💡 Pista: Cada verbo irregular tiene una forma especial en pasado. Piensa bien antes de elegir.',
+      items: chosen.map(v => ({
+        base: v.base,
+        answer: v.past,
+        options: shuffle([v.past, v.base+'ed', shuffle(IRREG.filter(x=>x.past!==v.past))[0].past, v.base+'d'])
+      }))
+    };
+  },
+];
+EXERCISES.push({ section: 'irreg', generators: ex9Versions });
+
+// --- EXERCISE 10: Complete sentence with irregular past ---
+const ex10Versions = [
+  () => ({
+    type:'fill_sentence_irreg',
+    title:'Complete the Sentence 🖊️',
+    instructions:'Complete each sentence with the past tense of the verb in parentheses.',
+    clue:'💡 Pista: Todos estos verbos son irregulares. No agregues -ed. Piensa en la forma correcta.',
+    items: shuffle([
+      {sentence:'She ___ (eat) a hamburger for lunch.', answer:'ate', img:IMG+'eat.jpg'},
+      {sentence:'The boy ___ (drink) a glass of water.', answer:'drank', img:IMG+'drink.jpg'},
+      {sentence:'They ___ (build) a new house last year.', answer:'built', img:IMG+'build.avif'},
+      {sentence:'I ___ (go) to the park yesterday.', answer:'went', img:null},
+      {sentence:'He ___ (see) a beautiful bird.', answer:'saw', img:null},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_irreg',
+    title:'Complete the Sentence 🖊️',
+    instructions:'Write the irregular past tense to complete each sentence.',
+    clue:'💡 Pista: Estos verbos son especiales. Por ejemplo: drink -> drank, build -> built. ¡No los trates como regulares!',
+    items: shuffle([
+      {sentence:'We ___ (come) to school early.', answer:'came', img:null},
+      {sentence:'She ___ (drink) orange juice this morning.', answer:'drank', img:IMG+'drink.jpg'},
+      {sentence:'The worker ___ (build) a strong wall.', answer:'built', img:IMG+'build.avif'},
+      {sentence:'He ___ (eat) three tacos.', answer:'ate', img:IMG+'eat.jpg'},
+      {sentence:'They ___ (take) the bus home.', answer:'took', img:null},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_irreg',
+    title:'Complete the Sentence 🖊️',
+    instructions:'Fill in the blanks with the correct irregular past tense.',
+    clue:'💡 Pista: Lee la oración completa. El verbo entre paréntesis está en forma base; cámbialo al pasado.',
+    items: shuffle([
+      {sentence:'I ___ (feel) happy yesterday.', answer:'felt', img:null},
+      {sentence:'She ___ (eat) breakfast at 7 AM.', answer:'ate', img:IMG+'eat.jpg'},
+      {sentence:'The children ___ (drink) milk.', answer:'drank', img:IMG+'drink.jpg'},
+      {sentence:'They ___ (build) a sandcastle at the beach.', answer:'built', img:IMG+'build.avif'},
+      {sentence:'He ___ (give) me a present.', answer:'gave', img:null},
+    ])
+  }),
+  () => ({
+    type:'fill_sentence_irreg',
+    title:'Complete the Sentence 🖊️',
+    instructions:'Use the irregular past tense to complete each sentence.',
+    clue:'💡 Pista: Recuerda: eat -> ate, drink -> drank, build -> built, know -> knew. ¡Memoriza bien!',
+    items: shuffle([
+      {sentence:'She ___ (know) the answer.', answer:'knew', img:null},
+      {sentence:'The girl ___ (eat) a big pizza.', answer:'ate', img:IMG+'eat.jpg'},
+      {sentence:'He ___ (drink) coffee this morning.', answer:'drank', img:IMG+'drink.jpg'},
+      {sentence:'The men ___ (build) a bridge.', answer:'built', img:IMG+'build.avif'},
+      {sentence:'We ___ (have) a great time.', answer:'had', img:null},
+    ])
+  }),
+];
+EXERCISES.push({ section: 'irreg', generators: ex10Versions });
+
+// ============================================================
+// CURRENT VERSIONS (randomly picked)
+// ============================================================
+let currentVersions = EXERCISES.map(ex => randInt(0, ex.generators.length - 1));
+
+function regenerateAll() {
+  currentVersions = EXERCISES.map(ex => randInt(0, ex.generators.length - 1));
+  renderExercises();
+}
+
+// ============================================================
+// TAB CHANGE DETECTION
+// ============================================================
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) return;
+  const warn = document.getElementById('tabWarning');
+  warn.style.display = 'block';
+  regenerateAll();
+  setTimeout(() => { warn.style.display = 'none'; }, 4000);
+});
+
+// ============================================================
+// RENDER EXERCISES
+// ============================================================
+function renderExercises() {
+  const container = document.getElementById('exercisesContainer');
+  container.innerHTML = '';
+  let exNum = 0;
+  const sections = [
+    { key:'adj', title:'Descriptive Adjectives', emoji:'🌟', desc:'Use the 30 adjectives from the vocabulary list to answer these exercises.' },
+    { key:'reg', title:'Past Regular Verbs', emoji:'⏪', desc:'Apply the 4 rules to form the past tense of regular verbs.', showRules:true },
+    { key:'irreg', title:'Past Irregular Verbs', emoji:'🔮', desc:'These verbs don\'t follow rules — you need to memorize them!' },
+  ];
+
+  sections.forEach(sec => {
+    // Section title
+    const titleDiv = document.createElement('div');
+    titleDiv.innerHTML = `<div class="section-title"><span class="emoji">${sec.emoji}</span> ${sec.title}</div><div class="section-desc">${sec.desc}</div>`;
+    container.appendChild(titleDiv);
+
+    // Rules box for regular verbs
+    if (sec.showRules) {
+      const rulesDiv = document.createElement('div');
+      rulesDiv.className = 'rules-box';
+      rulesDiv.innerHTML = `
+        <h3>📋 The 4 Rules for Regular Past Tense</h3>
+        <div class="rule"><span class="rule-label">Rule 1:</span> Most verbs → just add <b>-ed</b>. Example: walk → walk<b>ed</b>, talk → talk<b>ed</b></div>
+        <div class="rule"><span class="rule-label">Rule 2:</span> Verbs ending in <b>"e"</b> → just add <b>-d</b>. Example: dance → dance<b>d</b>, live → live<b>d</b></div>
+        <div class="rule"><span class="rule-label">Rule 3:</span> Verbs ending in <b>"y"</b>:<br>• If <b>vowel + y</b> → add <b>-ed</b>. Example: play → play<b>ed</b>, enjoy → enjoy<b>ed</b><br>• If <b>consonant + y</b> → change <b>y → ied</b>. Example: study → stud<b>ied</b>, carry → carr<b>ied</b></div>
+        <div class="rule"><span class="rule-label">Rule 4:</span> Short verbs (CVC pattern) → <b>double the last consonant + ed</b>. Example: stop → sto<b>pp</b>ed, plan → pla<b>nn</b>ed</div>
+      `;
+      container.appendChild(rulesDiv);
+    }
+
+    // Exercises in this section
+    EXERCISES.forEach((ex, idx) => {
+      if (ex.section !== sec.key) return;
+      exNum++;
+      const version = ex.generators[currentVersions[idx]]();
+      const card = document.createElement('div');
+      card.className = 'exercise-card';
+      card.innerHTML = buildExerciseHTML(exNum, idx, version);
+      container.appendChild(card);
+    });
+  });
+
+  // Re-apply paste prevention on new inputs
+  document.querySelectorAll('input[type=text]').forEach(el => {
+    el.addEventListener('paste', e => e.preventDefault());
+    el.addEventListener('copy', e => e.preventDefault());
+    el.addEventListener('drop', e => e.preventDefault());
+  });
+}
+
+function buildExerciseHTML(num, exIdx, data) {
+  let html = `<div class="exercise-header"><span class="exercise-number">${num}</span><span class="exercise-type">${data.title}</span></div>`;
+  html += `<div class="instructions">📌 ${data.instructions}</div>`;
+  html += `<button class="clue-btn" onclick="toggleClue(${exIdx})">💡 Clue</button>`;
+  html += `<div class="clue-text" id="clue-${exIdx}">${data.clue}</div>`;
+
+  switch(data.type) {
+    case 'matching_img':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item" style="display:flex;align-items:center;flex-wrap:wrap;gap:0.8rem;">`;
+        html += `<img src="${item.img}" alt="${item.label}" class="exercise-img" onerror="this.style.display='none'">`;
+        html += `<div style="flex:1;min-width:180px;"><label>${String.fromCharCode(97+i)}) ${item.label}</label>`;
+        html += `<select data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}"><option value="">-- Select --</option>`;
+        item.options.forEach(o => { html += `<option value="${o}">${o}</option>`; });
+        html += `</select></div></div>`;
+      });
+      break;
+
+    case 'fill_opposite':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.adj} → ___</label>`;
+        html += `<input type="text" data-ex="${exIdx}" data-q="${i}" data-answer="${item.opp}" placeholder="Write the opposite..." autocomplete="off" spellcheck="false"></div>`;
+      });
+      break;
+
+    case 'fill_sentence':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.sentence}</label>`;
+        html += `<select data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}"><option value="">-- Select --</option>`;
+        item.options.forEach(o => { html += `<option value="${o}">${o}</option>`; });
+        html += `</select></div>`;
+      });
+      break;
+
+    case 'match_dropdown':
+      html += `<div class="match-grid">`;
+      data.items.forEach((item, i) => {
+        html += `<div class="match-left">${item.left}</div><div class="match-arrow">→</div>`;
+        html += `<select data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}"><option value="">-- Select --</option>`;
+        data.pool.forEach(o => { html += `<option value="${o}">${o}</option>`; });
+        html += `</select>`;
+      });
+      html += `</div>`;
+      break;
+
+    case 'fill_past_reg':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.base} → ___</label>`;
+        html += `<input type="text" data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}" placeholder="Write the past tense..." autocomplete="off" spellcheck="false"></div>`;
+      });
+      break;
+
+    case 'identify_rule':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.base} → ${item.past}</label>`;
+        html += `<select data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}">`;
+        html += `<option value="">-- Select Rule --</option><option value="Rule 1">Rule 1 (add -ed)</option><option value="Rule 2">Rule 2 (add -d)</option><option value="Rule 3">Rule 3 (y rules)</option><option value="Rule 4">Rule 4 (double consonant)</option>`;
+        html += `</select></div>`;
+      });
+      break;
+
+    case 'fill_sentence_reg':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item">`;
+        if (item.img) html += `<img src="${item.img}" alt="${item.verb}" class="exercise-img" onerror="this.style.display='none'">`;
+        html += `<label>${String.fromCharCode(97+i)}) ${item.sentence}</label>`;
+        html += `<input type="text" data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}" placeholder="Write the past tense..." autocomplete="off" spellcheck="false"></div>`;
+      });
+      break;
+
+    case 'fill_irreg':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.base} → ___</label>`;
+        html += `<input type="text" data-ex="${exIdx}" data-q="${i}" data-answer="${item.past}" placeholder="Write the irregular past..." autocomplete="off" spellcheck="false"></div>`;
+      });
+      break;
+
+    case 'mc_irreg':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item"><label>${String.fromCharCode(97+i)}) ${item.base} → ?</label><div class="mc-options">`;
+        item.options.forEach((o, oi) => {
+          const name = `ex${exIdx}_q${i}`;
+          html += `<label class="mc-option"><input type="radio" name="${name}" value="${o}" data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}"> ${o}</label>`;
+        });
+        html += `</div></div>`;
+      });
+      break;
+
+    case 'fill_sentence_irreg':
+      data.items.forEach((item, i) => {
+        html += `<div class="question-item">`;
+        if (item.img) html += `<img src="${item.img}" alt="" class="exercise-img" onerror="this.style.display='none'">`;
+        html += `<label>${String.fromCharCode(97+i)}) ${item.sentence}</label>`;
+        html += `<input type="text" data-ex="${exIdx}" data-q="${i}" data-answer="${item.answer}" placeholder="Write the past tense..." autocomplete="off" spellcheck="false"></div>`;
+      });
+      break;
+  }
+  return html;
+}
+
+function toggleClue(idx) {
+  const el = document.getElementById('clue-' + idx);
+  el.classList.toggle('show');
+}
+
+// ============================================================
+// GRADING
+// ============================================================
+function gradeExam() {
+  let total = 0, correct = 0;
+  const results = [];
+
+  EXERCISES.forEach((ex, exIdx) => {
+    const version = ex.generators[currentVersions[exIdx]]();
+    const exResult = { title: version.title, questions: [] };
+    const qCount = version.items ? version.items.length : 0;
+
+    for (let i = 0; i < qCount; i++) {
+      total++;
+      let userAns = '';
+      let correctAns = '';
+
+      if (version.type === 'mc_irreg') {
+        const radios = document.querySelectorAll(`input[type=radio][data-ex="${exIdx}"][data-q="${i}"]`);
+        radios.forEach(r => { if(r.checked) userAns = r.value; correctAns = r.dataset.answer; });
+      } else {
+        const el = document.querySelector(`[data-ex="${exIdx}"][data-q="${i}"]`);
+        if (!el) continue;
+        userAns = (el.value || '').trim();
+        correctAns = el.dataset.answer;
+      }
+
+      const isCorrect = userAns.toLowerCase() === correctAns.toLowerCase();
+      if (isCorrect) correct++;
+
+      let questionLabel = '';
+      const item = version.items[i];
+      switch(version.type) {
+        case 'matching_img': questionLabel = item.label; break;
+        case 'fill_opposite': questionLabel = item.adj + ' -> opposite'; break;
+        case 'fill_sentence': case 'fill_sentence_reg': case 'fill_sentence_irreg': questionLabel = item.sentence; break;
+        case 'match_dropdown': questionLabel = item.left + ' -> opposite'; break;
+        case 'fill_past_reg': questionLabel = item.base + ' -> past'; break;
+        case 'identify_rule': questionLabel = item.base + ' -> ' + item.past + ' (rule?)'; break;
+        case 'fill_irreg': questionLabel = item.base + ' -> past'; break;
+        case 'mc_irreg': questionLabel = item.base + ' -> past'; break;
+      }
+
+      exResult.questions.push({ label: questionLabel, userAns: userAns || '(empty)', correctAns, isCorrect });
+    }
+    results.push(exResult);
+  });
+
+  return { total, correct, score: total > 0 ? (correct / total * 10).toFixed(1) : 0, results };
+}
+
+// ============================================================
+// SANITIZE TEXT FOR jsPDF
+// ============================================================
+function sanitize(text) {
+  if (!text) return '';
+  let s = String(text);
+  // Remove HTML tags but keep text
+  s = s.replace(/<br\s*\/?>/gi, ' ');
+  s = s.replace(/<[^>]*>/g, '');
+  // Decode HTML entities
+  s = s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ');
+  // Replace problematic Unicode
+  s = s.replace(/[\u2192\u2794\u279C\u27A1]/g, '->');  // arrows
+  s = s.replace(/[\u2013\u2014]/g, '-');  // dashes
+  s = s.replace(/[\u2018\u2019]/g, "'");  // smart quotes
+  s = s.replace(/[\u201C\u201D]/g, '"');  // smart double quotes
+  s = s.replace(/[\u2026]/g, '...');  // ellipsis
+  s = s.replace(/[\u00D7]/g, 'x');  // multiplication sign
+  s = s.replace(/[\u2022\u2023\u25E6\u2043\u2219]/g, '*');  // bullets
+  // Remove emojis and other problematic Unicode (keep basic Latin + Latin-1 Supplement)
+  s = s.replace(/[\u{1F000}-\u{1FFFF}]/gu, '');
+  s = s.replace(/[\u{2600}-\u{27BF}]/gu, '');
+  s = s.replace(/[\u{FE00}-\u{FE0F}]/gu, '');
+  s = s.replace(/[\u{1F900}-\u{1F9FF}]/gu, '');
+  s = s.replace(/[\u{200D}]/gu, '');
+  s = s.replace(/[\u{20E3}]/gu, '');
+  s = s.replace(/[^\x00-\xFF]/g, '');
+  // Clean up extra spaces
+  s = s.replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+// ============================================================
+// ROMAN NUMERAL CONVERTER
+// ============================================================
+function toRoman(num) {
+  const vals = [10,9,8,7,6,5,4,3,2,1];
+  const syms = ['X','IX','VIII','VII','VI','V','IV','III','II','I'];
+  let result = '';
+  let n = Math.floor(num);
+  for (let i = 0; i < vals.length; i++) {
+    while (n >= vals[i]) { result += syms[i]; n -= vals[i]; }
+  }
+  return result;
+}
+
+// ============================================================
+// GENERATE PDF
+// ============================================================
+function generatePDF() {
+  const studentName = document.getElementById('studentName').value.trim();
+  if (!studentName) { alert('Please write your name first!'); return; }
+
+  const btn = document.getElementById('pdfBtn');
+  btn.disabled = true;
+  btn.innerHTML = 'Generating PDF...';
+
+  setTimeout(() => {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'letter');
+      const W = 216, H = 279;
+      const mL = 18, mR = 18, mT = 15;
+      const usable = W - mL - mR;
+      let y = mT;
+
+      function checkPage(need) {
+        if (y + need > H - 25) {
+          doc.addPage();
+          y = mT;
+          return true;
+        }
+        return false;
+      }
+
+      // --- HEADER ---
+      doc.setFillColor(67, 56, 202);
+      doc.rect(0, 0, W, 38, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.text(sanitize('Complejo Educativo Canton Las Animas'), W / 2, 10, { align: 'center' });
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.text(sanitize('San Lorenzo, San Vicente'), W / 2, 16, { align: 'center' });
+      doc.setFontSize(15);
+      doc.setFont('helvetica', 'bold');
+      doc.text(sanitize('English A1+ Exam'), W / 2, 24, { align: 'center' });
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.text(sanitize('Teacher: Jose Eliseo Martinez'), W / 2, 30, { align: 'center' });
+      const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      doc.text(sanitize('Date: ' + dateStr + '  |  Grade: 10th'), W / 2, 35, { align: 'center' });
+
+      y = 44;
+      doc.setTextColor(30, 41, 59);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text(sanitize('Student: ' + studentName), mL, y);
+      y += 8;
+
+      // --- GRADE ---
+      const grade = gradeExam();
+
+      // --- EXERCISES WITH ANSWERS ---
+      let exNum = 0;
+      const sectionNames = { adj: 'DESCRIPTIVE ADJECTIVES', reg: 'PAST REGULAR VERBS', irreg: 'PAST IRREGULAR VERBS' };
+      let lastSection = '';
+
+      EXERCISES.forEach((ex, exIdx) => {
+        const version = ex.generators[currentVersions[exIdx]]();
+        exNum++;
+
+        // Section header
+        if (ex.section !== lastSection) {
+          checkPage(14);
+          lastSection = ex.section;
+          doc.setFillColor(224, 231, 255);
+          doc.rect(mL, y - 4, usable, 8, 'F');
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(67, 56, 202);
+          doc.text(sanitize(sectionNames[ex.section]), mL + 3, y + 1);
+          y += 10;
+        }
+
+        checkPage(12);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(30, 41, 59);
+        doc.text(sanitize('Exercise ' + exNum + ': ' + version.title), mL, y);
+        y += 5;
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'italic');
+        doc.setTextColor(100, 116, 139);
+        const instrLines = doc.splitTextToSize(sanitize(version.instructions), usable);
+        doc.text(instrLines, mL, y);
+        y += instrLines.length * 3.5 + 2;
+
+        // Questions and answers
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(30, 41, 59);
+        doc.setFontSize(9);
+
+        const gradeData = grade.results[exIdx];
+        gradeData.questions.forEach((q, qi) => {
+          checkPage(10);
+          const letter = String.fromCharCode(97 + qi);
+          const mark = q.isCorrect ? '[OK]' : '[X]';
+          const line = letter + ') ' + q.label;
+          const lineClean = sanitize(line);
+          const wrapped = doc.splitTextToSize(lineClean, usable - 5);
+          doc.setFont('helvetica', 'normal');
+          doc.text(wrapped, mL + 3, y);
+          y += wrapped.length * 3.8;
+
+          // Answer line
+          doc.setFont('helvetica', 'bold');
+          const ansColor = q.isCorrect ? [16, 185, 129] : [239, 68, 68];
+          doc.setTextColor(...ansColor);
+          const ansLine = sanitize('   Answer: ' + q.userAns + (q.isCorrect ? ' ' + mark : ' ' + mark + '  (Correct: ' + q.correctAns + ')'));
+          doc.text(ansLine, mL + 5, y);
+          doc.setTextColor(30, 41, 59);
+          y += 5;
+        });
+
+        y += 3;
+      });
+
+      // --- FOOTER with subtle grade in Roman numerals ---
+      const pages = doc.internal.getNumberOfPages();
+      const scoreWhole = Math.floor(parseFloat(grade.score));
+      const scoreDec = Math.round((parseFloat(grade.score) - scoreWhole) * 10);
+      let romanScore = toRoman(scoreWhole);
+      if (scoreDec > 0) romanScore += ' - ' + toRoman(scoreDec);
+
+      for (let p = 1; p <= pages; p++) {
+        doc.setPage(p);
+        doc.setFontSize(6);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(180, 180, 180);
+        doc.text(romanScore, W / 2, H - 8, { align: 'center' });
+        doc.text('Page ' + p + '/' + pages, W - mR, H - 8, { align: 'right' });
+      }
+
+      const safeName = studentName.replace(/[^a-zA-Z0-9]/g, '_');
+      doc.save('Exam_A1_' + safeName + '.pdf');
+    } catch (err) {
+      console.error('PDF Error:', err);
+      alert('Error generating PDF. Please try again.');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = ' Download PDF';
+  }, 300);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderExercises();
+</script>
+</body>
+</html>
