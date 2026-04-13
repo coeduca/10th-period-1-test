@@ -565,7 +565,7 @@ const ex1Versions = [
     items: shuffle([
       { img: IMG+'young.webp', label: 'Un adolescente', answer: 'Young', options: shuffle(['Old','Young','Short','Bad']) },
       { img: IMG+'beautiful.webp', label: 'Un bonito gato', answer: 'Beautiful', options: shuffle(['Beautiful','Ugly','Dirty','Loud']) },
-      { img: IMG+'happy.avif', label: 'Niños alegres', answer: 'Happy', options: shuffle(['Sad','Happy','Quiet','Cold']) },
+      { img: IMG+'clean.avif', label: 'Casa aseada', answer: 'Clean', options: shuffle(['Sad','Happy','Quiet','Clean']) },
       { img: IMG+'old.webp', label: 'Un anciano', answer: 'Old', options: shuffle(['Young','Old','Fast','Clean']) },
       { img: IMG+'slow.webp', label: 'Un caracol', answer: 'Slow', options: shuffle(['Big','Slow','Hard','Hot']) },
     ])
@@ -579,7 +579,7 @@ const ex1Versions = [
       { img: IMG+'fast.jpg', label: 'Un rápido cocodrilo', answer: 'Fast', options: shuffle(['Fast','Slow','Kind','Soft']) },
       { img: IMG+'happy.avif', label: 'Niños alegres', answer: 'Happy', options: shuffle(['Sad','Happy','Dirty','Poor']) },
       { img: IMG+'young.webp', label: 'Un adolescente', answer: 'Young', options: shuffle(['Old','Young','Big','Brave']) },
-      { img: IMG+'old.webp', label: 'Un anciano', answer: 'Old', options: shuffle(['Old','New','Fast','Rich']) },
+      { img: IMG+'rich.jpg', label: 'Un hombre con dinero', answer: 'Rich', options: shuffle(['Old','New','Fast','Rich']) },
       { img: IMG+'beautiful.webp', label: 'Un bonito gato', answer: 'Beautiful', options: shuffle(['Beautiful','Bad','Strong','Dark']) },
     ])
   })
@@ -624,11 +624,11 @@ const ex3Versions = [
     instructions:'Choose the correct adjective to complete each sentence.',
     clue:'💡 Pista: Lee la oración completa y piensa qué adjetivo tiene sentido. El contexto te da la respuesta.',
     items: shuffle([
-      { sentence:'The elephant is very ___.', answer:'Big', options:shuffle(['Big','Small','Fast','Clean']) },
-      { sentence:'The ice cream is ___.', answer:'Cold', options:shuffle(['Hot','Cold','Loud','Tall']) },
-      { sentence:'The baby is ___ because she is smiling.', answer:'Happy', options:shuffle(['Happy','Sad','Dirty','Old']) },
-      { sentence:'The night sky is ___.', answer:'Dark', options:shuffle(['Dark','Clean','Soft','Short']) },
-      { sentence:'The rabbit is very ___.', answer:'Fast', options:shuffle(['Slow','Fast','Weak','Bad']) },
+      { sentence:'The elephant is very ___. (🤫)', answer:'Big', options:shuffle(['Big','Small','Fast','Clean']) },
+      { sentence:'The ice cream is ___. (❄️)', answer:'Cold', options:shuffle(['Hot','Cold','Loud','Tall']) },
+      { sentence:'The baby is ___ because she is smiling. (😁)', answer:'Happy', options:shuffle(['Happy','Sad','Dirty','Old']) },
+      { sentence:'The night sky is ___. (🌃)', answer:'Dark', options:shuffle(['Dark','Clean','Soft','Short']) },
+      { sentence:'The rabbit is very ___. (🏃🏻‍♀️‍➡️)', answer:'Fast', options:shuffle(['Slow','Fast','Weak','Bad']) },
     ])
   }),
   () => ({
@@ -637,11 +637,11 @@ const ex3Versions = [
     instructions:'Select the best adjective for each sentence.',
     clue:'💡 Pista: Piensa en la situación descrita. ¿Cómo es la persona, animal o cosa? Eso te dice el adjetivo.',
     items: shuffle([
-      { sentence:'The music is too ___, I can hear it from outside.', answer:'Loud', options:shuffle(['Loud','Quiet','Soft','Small']) },
-      { sentence:'My grandmother is very ___. She helps everyone.', answer:'Kind', options:shuffle(['Kind','Bad','Dirty','Sad']) },
-      { sentence:'The pillow is very ___.', answer:'Soft', options:shuffle(['Hard','Soft','Fast','Tall']) },
-      { sentence:'The firefighter is very ___.', answer:'Brave', options:shuffle(['Brave','Weak','Poor','Slow']) },
-      { sentence:'The clown is very ___.', answer:'Funny', options:shuffle(['Funny','Sad','Quiet','Old']) },
+      { sentence:'The music is too ___, I can hear it from outside. 🔊', answer:'Loud', options:shuffle(['Loud','Quiet','Soft','Small']) },
+      { sentence:'My grandmother is very ___. She helps everyone. 💓', answer:'Kind', options:shuffle(['Kind','Bad','Dirty','Sad']) },
+      { sentence:'The pillow is very ___. 🪶', answer:'Soft', options:shuffle(['Hard','Soft','Fast','Tall']) },
+      { sentence:'The firefighter is very ___. 💪🏻', answer:'Brave', options:shuffle(['Brave','Weak','Poor','Slow']) },
+      { sentence:'The clown is very ___. 🤡', answer:'Funny', options:shuffle(['Funny','Sad','Quiet','Old']) },
     ])
   }),
   () => ({
@@ -650,11 +650,11 @@ const ex3Versions = [
     instructions:'Pick the correct adjective to fill in the blank.',
     clue:'💡 Pista: El adjetivo describe al sujeto de la oración. Pregúntate: ¿cómo es?',
     items: shuffle([
-      { sentence:'The water in the pool is ___.', answer:'Cold', options:shuffle(['Cold','Hot','Dirty','Small']) },
-      { sentence:'The ___ man can lift heavy things.', answer:'Strong', options:shuffle(['Weak','Strong','Short','Poor']) },
-      { sentence:'My room is very ___, I clean it every day.', answer:'Clean', options:shuffle(['Dirty','Clean','Dark','Loud']) },
-      { sentence:'The giraffe is very ___.', answer:'Tall', options:shuffle(['Short','Tall','Small','Slow']) },
-      { sentence:'The ___ car goes very slowly.', answer:'Old', options:shuffle(['New','Old','Fast','Big']) },
+      { sentence:'The water in the pool is ___. ❄️', answer:'Cold', options:shuffle(['Cold','Hot','Dirty','Small']) },
+      { sentence:'The ___ man can lift heavy things. 💪🏻', answer:'Strong', options:shuffle(['Weak','Strong','Short','Poor']) },
+      { sentence:'My room is very ___, I clean it every day. ✨', answer:'Clean', options:shuffle(['Dirty','Clean','Dark','Loud']) },
+      { sentence:'The giraffe is very ___. 🦒', answer:'Tall', options:shuffle(['Short','Tall','Small','Slow']) },
+      { sentence:'The ___ car goes very slowly. 🚗', answer:'Old', options:shuffle(['New','Old','Fast','Big']) },
     ])
   }),
   () => ({
@@ -663,11 +663,11 @@ const ex3Versions = [
     instructions:'Choose the correct adjective for each sentence.',
     clue:'💡 Pista: Lee toda la oración antes de elegir. El significado general te guiará.',
     items: shuffle([
-      { sentence:'The library is very ___.', answer:'Quiet', options:shuffle(['Loud','Quiet','Dirty','Hot']) },
-      { sentence:'The test was very ___, many students failed.', answer:'Hard', options:shuffle(['Soft','Hard','Good','Small']) },
-      { sentence:'The puppy is ___ and playful.', answer:'Small', options:shuffle(['Big','Small','Old','Sad']) },
-      { sentence:'He lost his job. He feels very ___.', answer:'Sad', options:shuffle(['Happy','Sad','Rich','Fast']) },
-      { sentence:'The ___ student gets good grades.', answer:'Good', options:shuffle(['Bad','Good','Dirty','Weak']) },
+      { sentence:'The library is very ___. 🤫', answer:'Quiet', options:shuffle(['Loud','Quiet','Dirty','Hot']) },
+      { sentence:'The test was very ___, many students failed. 😥', answer:'Hard', options:shuffle(['Soft','Hard','Good','Small']) },
+      { sentence:'The puppy is ___ and playful. 🐕', answer:'Small', options:shuffle(['Big','Small','Old','Sad']) },
+      { sentence:'He lost his job. He feels very ___. 😢', answer:'Sad', options:shuffle(['Happy','Sad','Rich','Fast']) },
+      { sentence:'The ___ student gets good grades. 👌🏻', answer:'Good', options:shuffle(['Bad','Good','Dirty','Weak']) },
     ])
   }),
 ];
@@ -812,10 +812,10 @@ const ex7Versions = [
     instructions:'Complete each sentence using the past tense of the verb in parentheses.',
     clue:'💡 Pista: Primero identifica el verbo, luego aplica la regla correcta para convertirlo al pasado.',
     items: shuffle([
-      {sentence:'She ___ (walk) to school yesterday.', verb:'walk', answer:'walked', img: null},
+      {sentence:'He ___ (walk) to school yesterday.', verb:'walk', answer:'walked', img: IMG+'walk.avif'},
       {sentence:'They ___ (study) for the exam last night.', verb:'study', answer:'studied', img: IMG+'study.png'},
       {sentence:'He ___ (dance) at the party.', verb:'dance', answer:'danced', img: IMG+'dance.png'},
-      {sentence:'Mom ___ (cook) a delicious dinner.', verb:'cook', answer:'cooked', img: IMG+'cook.png'},
+      {sentence:'The chef ___ (cook) a delicious dinner.', verb:'cook', answer:'cooked', img: IMG+'cook.png'},
       {sentence:'The children ___ (play) in the park.', verb:'play', answer:'played', img: IMG+'play.jpg'},
     ])
   }),
@@ -825,8 +825,8 @@ const ex7Versions = [
     instructions:'Write the correct past tense form of the verb in parentheses.',
     clue:'💡 Pista: Identifica la regla mirando cómo termina el verbo. Luego aplícala.',
     items: shuffle([
-      {sentence:'I ___ (clean) my room this morning.', verb:'clean', answer:'cleaned', img:null},
-      {sentence:'She ___ (smile) when she saw the gift.', verb:'smile', answer:'smiled', img:null},
+      {sentence:'I ___ (clean) my room this morning.', verb:'clean', answer:'cleaned', img:IMG+'clean.avif'},
+      {sentence:'He ___ (smile) when he saw the gift.', verb:'smile', answer:'smiled', img:IMG+'smile.jpg'},
       {sentence:'He ___ (study) English all afternoon.', verb:'study', answer:'studied', img:IMG+'study.png'},
       {sentence:'The chef ___ (cook) a big meal.', verb:'cook', answer:'cooked', img:IMG+'cook.png'},
       {sentence:'We ___ (play) soccer after school.', verb:'play', answer:'played', img:IMG+'play.jpg'},
@@ -838,10 +838,10 @@ const ex7Versions = [
     instructions:'Fill in the blank with the past tense of the verb given.',
     clue:'💡 Pista: Recuerda que "study" cambia la "y" por "ied", pero "play" solo agrega "ed" porque antes de la "y" hay vocal.',
     items: shuffle([
-      {sentence:'They ___ (talk) about their homework.', verb:'talk', answer:'talked', img:null},
+      {sentence:'They ___ (talk) about their homework.', verb:'talk', answer:'talked', img:IMG+'talk.webp'},
       {sentence:'My sister ___ (dance) beautifully.', verb:'dance', answer:'danced', img:IMG+'dance.png'},
       {sentence:'We ___ (cook) breakfast together.', verb:'cook', answer:'cooked', img:IMG+'cook.png'},
-      {sentence:'The baby ___ (cry) all night.', verb:'cry', answer:'cried', img:null},
+      {sentence:'The baby ___ (cry) all night.', verb:'cry', answer:'cried', img:IMG+'cry.webp'},
       {sentence:'I ___ (play) video games with my friend.', verb:'play', answer:'played', img:IMG+'play.jpg'},
     ])
   }),
@@ -851,11 +851,11 @@ const ex7Versions = [
     instructions:'Complete each sentence with the correct past tense form.',
     clue:'💡 Pista: Si el verbo termina en "e" como "dance", solo agrega "d". Si termina en consonante + "y" como "study", cambia "y" por "ied".',
     items: shuffle([
-      {sentence:'He ___ (open) the door quickly.', verb:'open', answer:'opened', img:null},
+      {sentence:'She ___ (open) the door quickly.', verb:'open', answer:'opened', img:IMG+'open.avif'},
       {sentence:'We ___ (study) math yesterday.', verb:'study', answer:'studied', img:IMG+'study.png'},
-      {sentence:'She ___ (dance) with her friends.', verb:'dance', answer:'danced', img:IMG+'dance.png'},
+      {sentence:'He ___ (dance) with his friends.', verb:'dance', answer:'danced', img:IMG+'dance.png'},
       {sentence:'The boys ___ (play) basketball.', verb:'play', answer:'played', img:IMG+'play.jpg'},
-      {sentence:'She ___ (stop) the car suddenly.', verb:'stop', answer:'stopped', img:null},
+      {sentence:'She ___ (stop) the car suddenly.', verb:'stop', answer:'stopped', img:IMG+'stop.webp'},
     ])
   }),
 ];
@@ -970,8 +970,8 @@ const ex10Versions = [
       {sentence:'She ___ (eat) a hamburger for lunch.', answer:'ate', img:IMG+'eat.jpg'},
       {sentence:'The boy ___ (drink) a glass of water.', answer:'drank', img:IMG+'drink.jpg'},
       {sentence:'They ___ (build) a new house last year.', answer:'built', img:IMG+'build.avif'},
-      {sentence:'I ___ (go) to the park yesterday.', answer:'went', img:null},
-      {sentence:'He ___ (see) a beautiful bird.', answer:'saw', img:null},
+      {sentence:'I ___ (go) to the park yesterday.', answer:'went', img:IMG+'park.jpg'},
+      {sentence:'He ___ (see) a beautiful bird.', answer:'saw', img:IMG+'bird.jpg'},
     ])
   }),
   () => ({
@@ -980,11 +980,11 @@ const ex10Versions = [
     instructions:'Write the irregular past tense to complete each sentence.',
     clue:'💡 Pista: Estos verbos son especiales. Por ejemplo: drink -> drank, build -> built. ¡No los trates como regulares!',
     items: shuffle([
-      {sentence:'We ___ (come) to school early.', answer:'came', img:null},
+      {sentence:'We ___ (come) to school early.', answer:'came', img:IMG+'school.webp'},
       {sentence:'She ___ (drink) orange juice this morning.', answer:'drank', img:IMG+'drink.jpg'},
       {sentence:'The worker ___ (build) a strong wall.', answer:'built', img:IMG+'build.avif'},
       {sentence:'He ___ (eat) three tacos.', answer:'ate', img:IMG+'eat.jpg'},
-      {sentence:'They ___ (take) the bus home.', answer:'took', img:null},
+      {sentence:'They ___ (take) the bus home.', answer:'took', img:IMG+'bus.png'},
     ])
   }),
   () => ({
@@ -993,11 +993,11 @@ const ex10Versions = [
     instructions:'Fill in the blanks with the correct irregular past tense.',
     clue:'💡 Pista: Lee la oración completa. El verbo entre paréntesis está en forma base; cámbialo al pasado.',
     items: shuffle([
-      {sentence:'I ___ (feel) happy yesterday.', answer:'felt', img:null},
+      {sentence:'I ___ (feel) happy yesterday.', answer:'felt', img:IMG+'happy.avif'},
       {sentence:'She ___ (eat) breakfast at 7 AM.', answer:'ate', img:IMG+'eat.jpg'},
       {sentence:'The children ___ (drink) milk.', answer:'drank', img:IMG+'drink.jpg'},
       {sentence:'They ___ (build) a sandcastle at the beach.', answer:'built', img:IMG+'build.avif'},
-      {sentence:'He ___ (give) me a present.', answer:'gave', img:null},
+      {sentence:'He ___ (give) me a present.', answer:'gave', img:IMG+'present.jpg'},
     ])
   }),
   () => ({
@@ -1006,11 +1006,11 @@ const ex10Versions = [
     instructions:'Use the irregular past tense to complete each sentence.',
     clue:'💡 Pista: Recuerda: eat -> ate, drink -> drank, build -> built, know -> knew. ¡Memoriza bien!',
     items: shuffle([
-      {sentence:'She ___ (know) the answer.', answer:'knew', img:null},
+      {sentence:'He ___ (know) the answer.', answer:'knew', img:IMG+'know.webp'},
       {sentence:'The girl ___ (eat) a big pizza.', answer:'ate', img:IMG+'eat.jpg'},
       {sentence:'He ___ (drink) coffee this morning.', answer:'drank', img:IMG+'drink.jpg'},
       {sentence:'The men ___ (build) a bridge.', answer:'built', img:IMG+'build.avif'},
-      {sentence:'We ___ (have) a great time.', answer:'had', img:null},
+      {sentence:'We ___ (have) a great time.', answer:'had', img:IMG+'fun.avif'},
     ])
   }),
 ];
@@ -1045,8 +1045,8 @@ function renderExercises() {
   container.innerHTML = '';
   let exNum = 0;
   const sections = [
-    { key:'adj', title:'Descriptive Adjectives', emoji:'🌟', desc:'Use the 30 adjectives from the vocabulary list to answer these exercises.' },
-    { key:'reg', title:'Past Regular Verbs', emoji:'⏪', desc:'Apply the 4 rules to form the past tense of regular verbs.', showRules:true },
+    { key:'adj', title:'Descriptive Adjectives', emoji:'🌟', desc:'Usa los 30 adjetivos del cuaderno para contestar estos ejercicios.' },
+    { key:'reg', title:'Past Regular Verbs', emoji:'⏪', desc:'Aplica las 4 reglas en tu cuaderno o en el cartel para convertir verbos a pasado.', showRules:true },
     { key:'irreg', title:'Past Irregular Verbs', emoji:'🔮', desc:'These verbs don\'t follow rules — you need to memorize them!' },
   ];
 
